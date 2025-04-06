@@ -1,3 +1,83 @@
+# ADHDapt
+
+**ADHDapt** is a supportive web application designed to assist individuals with ADHD in managing their daily lives more effectively. It addresses common ADHD-related challenges through a combination of scheduling, mood tracking, gamification, journaling, and community support.
+
+---
+
+## 🧠 Problem Statement
+
+ADHDapt aims to help users tackle:
+
+- Lack of Focus
+- Poor Time Management
+- Emotional Dysregulation
+- Impulsivity
+- Burnout
+- Social Isolation
+- Various types of ADHD
+- Low awareness about ADHD symptoms
+
+---
+
+## 💡 Our Solution
+
+ADHDapt provides the following features:
+
+- 🎮 **Gamification** to develop and maintain focus
+- 📅 **Scheduler** with calendar, notification, timer, and optional AI-based suggestions
+- 📈 **Mood Tracker** with relaxing audio session playback
+- 📓 **Journaling** system to reflect on thoughts, with graphs and analytics
+- ✅ **Task Breakdown** feature that includes breaks and distraction-free mode
+- 💬 **Community Support** to connect with others in a similar journey
+- 🧩 **Information Hub** explaining ADHD types, symptoms, and possible remedies
+- ✍️ **Articles & Blogs** for personal experiences and education
+
+---
+
+## 👥 Who Can Use ADHDapt?
+
+- Individuals (self-use)
+- Parents (with a dedicated **Parent Mode**)
+- Therapists
+
+---
+
+## 🛠 Tech Stack
+
+### 🔷 Frontend
+
+- Next.js
+- ShadCN
+- TailwindCSS
+- Framer
+- Recharts (for graphs)
+- Websockets
+- Zustand (for state management)
+- Three.js (optional)
+
+### 🔶 Backend
+
+- MongoDB
+- Firebase (for notifications and reminders; may use OneSignal)
+
+### 🔐 Authentication
+
+- Firebase Auth / JWT
+- Google OAuth
+
+### 🔌 APIs
+
+- OpenAI
+- Gamification API
+
+### 🌐 Hosting
+
+- Vercel / Render
+- Cloudinary
+- Mongo Atlas
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
