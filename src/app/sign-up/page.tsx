@@ -16,6 +16,9 @@ import { Separator } from "@/components/ui/separator";
 //react-icons
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { TriangleAlert } from "lucide-react";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -26,11 +29,12 @@ const SignUp = () => {
   });
 
   const [pending, setPending] = useState(false);
+  const [error, setError] = useState(null);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPending(true);
-    // Add your signup logic here
     const res = await fetch("/api/auth/signup", {
       method: "POST",
       headers: {
@@ -38,6 +42,15 @@ const SignUp = () => {
       },
       body: JSON.stringify(form),
     });
+    const data = await res.json();
+    if (res.ok) {
+      setPending(false);
+      toast.success("User created");
+      router.push("/sign-in");
+    } else {
+      setError(data.message);
+      setPending(false);
+    }
   };
 
   return (
@@ -52,6 +65,16 @@ const SignUp = () => {
               Join our community and unlock your potential today.
             </CardDescription>
           </CardHeader>
+          {!!error && (
+            <div className="bg-destructive/50 p-3 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
+              <TriangleAlert />
+              <p>
+                {error === "User already exists"
+                  ? "User already exists. Please try signing in."
+                  : error}
+              </p>
+            </div>
+          )}
           <CardContent className="grid gap-6">
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <Input
