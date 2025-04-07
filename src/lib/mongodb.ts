@@ -9,13 +9,12 @@ if (!MONGODB_URI) {
 }
 
 async function connectToDatabase() {
-  if (mongoose.connection.readyState === 0) {
-    return mongoose;
+  if (mongoose.connection.readyState !== 1) {
+    const opts = {
+      bufferCommands: false,
+    };
+    await mongoose.connect(MONGODB_URI!, opts);
   }
-  const opts = {
-    bufferCommands: false,
-  };
-  await mongoose.connect(MONGODB_URI!, opts);
   return mongoose;
 }
 

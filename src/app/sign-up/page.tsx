@@ -1,3 +1,5 @@
+"use client";
+
 //shadcn/ui
 import React from "react";
 import { Button } from "@/components/ui/button";
@@ -13,8 +15,31 @@ import { Separator } from "@/components/ui/separator";
 
 //react-icons
 import { FcGoogle } from "react-icons/fc";
+import { useState } from "react";
 
 const SignUp = () => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [pending, setPending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPending(true);
+    // Add your signup logic here
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white font-sans">
       <div className="w-full max-w-lg p-8">
@@ -28,11 +53,14 @@ const SignUp = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-6">
-            <form className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <Input
                 type="text"
+                disabled={pending}
+                value={form.name}
                 placeholder="Enter your username"
                 required
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className="rounded-md bg-gray-800 text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-indigo-500"
               />
               <Input
@@ -40,21 +68,33 @@ const SignUp = () => {
                 placeholder="Enter your email"
                 required
                 className="rounded-md bg-gray-800 text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-indigo-500"
+                disabled={pending}
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
               />
               <Input
                 type="password"
                 placeholder="Create a password"
                 required
                 className="rounded-md bg-gray-800 text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-indigo-500"
+                disabled={pending}
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
               />
               <Input
                 type="password"
                 placeholder="Confirm your password"
                 required
                 className="rounded-md bg-gray-800 text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-indigo-500"
+                disabled={pending}
+                value={form.confirmPassword}
+                onChange={(e) =>
+                  setForm({ ...form, confirmPassword: e.target.value })
+                }
               />
               <Button
                 type="submit"
+                disabled={pending}
                 className="w-full bg-indigo-600 text-white hover:bg-indigo-700 rounded-md"
               >
                 Sign Up
