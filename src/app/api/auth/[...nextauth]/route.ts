@@ -4,6 +4,7 @@ import connectToDatabase from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 
 const handler = NextAuth({
   session: {
@@ -36,6 +37,10 @@ const handler = NextAuth({
         }
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -61,4 +66,5 @@ const handler = NextAuth({
   },
   secret: process.env.NEXTAUTH_SECRET,
 });
+
 export { handler as GET, handler as POST };
